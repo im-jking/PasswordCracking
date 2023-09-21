@@ -1,0 +1,28 @@
+Hashcat:
+1. b59c67bf196a4758191e42f76670ceba (MD5)
+	a. Command = 'hashcat -m 0 -a 3 -o broken.txt hash1.txt'
+	b. Go through this one with everyone
+2. a14134e0c2673d3b1e52fb07be35efb6 (MD5)
+	a. Command = 'hashcat -m 0 -a 3 -o broken.txt hash2.txt 1111?d?d?d?d'
+	b. Hint = "Use the previous answer, and add four more digits."
+3. 181900dad960beccb34f53c4e0ff4647 (MD5)
+	a. Command = 'hashcat -m 0 -a 0 -o broken.txt hash3.txt dictionary.txt'
+	b. Hint = "Use the provided dictionary."
+4. dd3fbfc2f7f6c45a1b36286b097bb925a9eb672c (SHA1)
+	a. Command = 'hashcat -m 100 -a 1 -o broken.txt hash4.txt dictionary.txt dictionary.txt -j '$1$1$1$1$0$3$9$9''
+	b. Hint = "Two words from the dictionary, separated by the numerical password from the second hash. This hash type looks different."
+
+John:
+1. 787ADADA1BF32844864DCA86F2A3C6F315561BFF8EC35EA2E3C0118C65C62D7E78910EFA12C4D6A90E18DD240C4DCD9F5C6C964382C1063B599FB3C883AAEB16 (Whirlpool)
+	a. Command = 'john --format=whirlpool hash5.txt'
+	b. Hint = "Still brute force, but make sure it's checking for the correct hash type."
+2. e3b5bdd0e0db8d45579a7646972fc0334694a636 (SHA-1)
+	a. Command = 'john --format=raw-sha1 --wordlist="dictionary.txt" --rules hash6.txt'
+	b. Hint = "We're still getting a password from the dictionary, but it may be a bit modified."
+3. 3DC4F86E739021C34F33D5270848C7A629986DC28247A4C614ADE963CA5F085E3991108EBEAF6C1BDA3F844960A3FF11059C2CF6E0EA0F422E427BD11B4C4797 (Whirlpool)
+	a. Command = 'john --format=whirlpool --wordlist="dictionary.txt" --rules --mask="?w?d?d?d?d?d" hash7.txt'
+	b. Hint = "Use the previous answer, and add five digits."
+4. 46e97222853bc3675df9e4143eec4bf5 (MD5)
+	a. Command = 'cat dictionary.txt | xargs -t -I% john --format=raw-md5 --wordlist="dictionary.txt" --rules --mask="%?a?a?a?w" hash8.txt'
+	b. Hint = "This is a word from the dictionary, followed by three characters, followed by a mutation from the dictionary.
+	c. Ask if anyone has ideas on how to solve it before showing anything. This will take a bit longer.
